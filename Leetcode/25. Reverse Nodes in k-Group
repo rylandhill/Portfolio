@@ -1,0 +1,25 @@
+class Solution(object):
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        fin = []
+        while True:
+            try:
+                fin.append(head)
+                head = head.next
+            except:
+                break
+        fin.pop(-1)
+        for i in range(0,len(fin)):
+            fin[i].next = None
+        sublists = [fin[i:i + k] for i in range(0, len(fin), k)]
+        for sub in sublists:
+            if len(sub)==k:
+                sub.reverse()
+        fin = [item for row in sublists for item in row]
+        for j in range(0,len(fin)-1):
+            fin[j].next = fin[j+1]
+        return fin[0]
