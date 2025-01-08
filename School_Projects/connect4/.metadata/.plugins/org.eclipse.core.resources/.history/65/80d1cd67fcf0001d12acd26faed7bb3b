@@ -1,0 +1,10 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class JPanel2 extends JPanel {
+	public JPanel panel;
+	public JPanel2() {
+	panel.setSize(new Dimension(800,500));
+	panel.setBackground(Color.BLACK);
+	}
+}

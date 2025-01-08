@@ -1,0 +1,20 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class drawing extends JPanel{
+	int x;
+	int y;
+	int r;
+	public drawing() {
+		x=200;
+		y=200;
+		r=50;
+	}
+	public void paintComponent(Graphics g) {
+		super.paint(g);
+		drawCircle(g,x,y,r);
+	}
+	public void drawCircle(Graphics cg, int xCenter, int yCenter, int r) {
+		cg.drawOval(xCenter-r, yCenter-r, r*2, r*2);
+	}
+}

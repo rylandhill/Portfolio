@@ -1,0 +1,19 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.*;
+public class Screen{
+    public static void main(String args[]){
+       JFrame frame = new JFrame("Connect 4");
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       frame.setSize(1000,800);
+       frame.getContentPane().setBackground(Color.BLACK);
+       frame.setVisible(false);
+       CircleList CList = new CircleList();
+       CList.AddNew(200, 200, 50);
+    }
+    public void paintCircle(Graphics g, int x, int y, int r) {
+ 	   x = x-(r/2);
+ 	   y = y-(r/2);
+ 	   g.fillOval(x, y, r, r);
+    }
+}

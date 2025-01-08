@@ -1,0 +1,27 @@
+import java.util.*;
+class CircleList{
+	ArrayList<Circle> circles;
+	public class Circle{
+		public int x, y, diameter;
+		public Circle(int x,int y, int diameter) {
+			this.x = x;
+			this.y = y;
+			this.diameter = diameter;
+		}
+	}
+	public CircleList() {
+		circles = new ArrayList<Circle>();
+	}
+	public void Add(Circle item) {
+		circles.add(item);
+	}
+	public void AddNew(int x, int y, int diameter) {
+		circles.add(new Circle(x,y,diameter));
+	}
+	public Circle getItem(int index) {
+		return circles.get(index);
+	}
+	public int getLength() {
+		return circles.size();
+	}
+}

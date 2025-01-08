@@ -1,0 +1,9 @@
+import java.awt.*;
+import javax.swing.*;
+import org.w3c.dom.events.MouseEvent;
+
+public class mouseCheck extends MouseAdapter {
+	public void mouseClicked(MouseEvent event) {
+		System.out.println(event.getScreenX());
+	}
+}

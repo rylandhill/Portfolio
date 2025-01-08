@@ -1,0 +1,44 @@
+import java.util.*;
+import java.awt.*;
+class CircleList{
+	ArrayList<Circle> circles;
+	public class Circle{
+		public int x, y, radius;
+		public Color col;
+		public Circle(int x,int y, int radius,Color col) {
+			this.x = x;
+			this.y = y;
+			this.radius = radius;
+			this.col=col;
+		}
+	}
+	public CircleList() {
+		circles = new ArrayList<Circle>();
+	}
+	public void Add(Circle item) {
+		circles.add(item);
+	}
+	public void AddNew(int x, int y, int radius) {
+		circles.add(new Circle(x,y,radius,Color.DARK_GRAY));
+	}
+	public Circle getItem(int index) {
+		return circles.get(index);
+	}
+	public int getLength() {
+		return circles.size();
+	}
+	public void changeColor(int index,Color color) {
+		circles.get(index).col=color;
+	}
+	public Color getColor(int index) {
+		return circles.get(index).col;
+	}
+	public ArrayList<Circle> getList() {
+		return circles;
+	}
+	public void clear() {
+		for (int i=0;i<42;i++) {
+			circles.get(i).set(null);
+		}
+	}
+}

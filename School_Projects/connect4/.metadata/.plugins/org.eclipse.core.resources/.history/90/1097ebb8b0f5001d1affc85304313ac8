@@ -1,0 +1,220 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+
+public class MainScreen{
+	public static CircleList CList;
+	MouseHandler mHandler = new MouseHandler();
+	JFrame MainFrame;
+	JFrame RedFrame;
+	JFrame BlueFrame;
+	JPanel2 panel;
+	int player;
+	public static void main (String args[]) {
+		new MainScreen();
+	}
+	public MainScreen() {
+		player = 0;
+		CList = new CircleList();
+		for (int y=100;y<700;y+=100) {
+			for (int x=100;x<800;x+=100) {
+				CList.AddNew(x, y, 50);
+			}
+		}
+		MainFrame = new JFrame("Connect 4");
+		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MainFrame.setSize(900,800);
+		MainFrame.setLocationRelativeTo(null);
+		MainFrame.addMouseListener(mHandler);
+		MainFrame.setBackground(Color.GRAY);
+		panel = new JPanel2(0);
+		MainFrame.add(panel);
+		
+		RedFrame = new JFrame("Connect 4");
+		RedFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		RedFrame.setSize(900,800);
+		RedFrame.setLocationRelativeTo(null);
+		RedFrame.setVisible(false);
+		JLabel label = new JLabel("<html><b>Red Wins!</b></html>", SwingConstants.CENTER);
+		label.setForeground(Color.RED);
+		label.setFont(new Font("Serif", Font.PLAIN,40));
+		RedFrame.add(label, BorderLayout.CENTER);
+		JButton button = new JButton("Play Again?");
+		RedFrame.add(button,BorderLayout.SOUTH);
+		
+		BlueFrame = new JFrame("Connect 4");
+		BlueFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BlueFrame.setSize(900,800);
+		BlueFrame.setLocationRelativeTo(null);
+		BlueFrame.setVisible(false);
+		JLabel label2 = new JLabel("<html><b>Blue Wins!</b></html>", SwingConstants.CENTER);
+		label2.setForeground(Color.BLUE);
+		label2.setFont(new Font("Serif", Font.PLAIN,40));
+		BlueFrame.add(label2, BorderLayout.CENTER);
+		
+		MainFrame.setVisible(true);
+	}
+	public void redWins() {
+		System.out.println("Red Wins");
+		MainFrame.setVisible(false);
+		RedFrame.setVisible(true);
+	}
+	public void blueWins() {
+		System.out.println("Blue Wins");
+		MainFrame.setVisible(false);
+		BlueFrame.setVisible(true);
+	}
+	public void checkForWin() {
+		int count=0;
+		int player=0;
+		//horizontal check
+		for (int i=0;i<42;i++) {
+			if (CList.getColor(i)==Color.RED) {
+				if (player==0) {
+					count++;
+				}else {
+					player=0;
+					count=1;
+				}
+			}else if(CList.getColor(i)==Color.BLUE) {
+				if (player==1) {
+					count++;
+				}else {
+					player=1;
+					count=1;
+				}
+			}else {
+				count=0;
+			}
+			if (count>=4&&player==0) {
+			redWins();
+			i=50;
+			}
+			if (count>=4&&player==1) {
+			blueWins();
+			i=50;
+			}
+		}
+		//vertical check
+		count=0;
+		player=0;
+		for (int i=0;i<7;i++) {
+			for (int k=0;k<6;k++) {
+				if(CList.getColor(i+(k*7))==Color.RED) {
+					if (player==0) {
+						count++;
+					}else {
+						player=0;
+						count=1;
+					}
+				}else if(CList.getColor(i+(k*7))==Color.BLUE) {
+					if(player==1) {
+						count++;
+					}else {
+						player=1;
+						count=1;
+					}
+				}else {
+					count=0;
+				}
+				if (count>=4) {
+					i=100;
+					k=100;
+					if(player==0) {
+						redWins();
+					}else {
+						blueWins();
+					}
+				}
+			}
+		}
+		
+		//left to right diagonal check
+		for (int i=0;i<3;i++) {
+			for (int k=0;k<4;k++) {
+				if(CList.getColor(k+(i*7))==Color.RED) {
+					if(CList.getColor(k+((i+1)*7)+1)==Color.RED&&CList.getColor(k+((i+2)*7)+2)==Color.RED&&CList.getColor(k+((i+3)*7)+3)==Color.RED) {
+						i=50;
+						k=50;
+						redWins();
+					}
+				}else if(CList.getColor(k+(i*7))==Color.BLUE) {
+					if(CList.getColor(k+((i+1)*7)+1)==Color.BLUE&&CList.getColor(k+((i+2)*7)+2)==Color.BLUE&&CList.getColor(k+((i+3)*7)+3)==Color.BLUE) {
+						i=50;
+						k=50;
+						blueWins();
+					}
+				}else {
+				}
+			}
+		}
+		//right to left diagonal check
+		for (int i=0;i<3;i++) {
+			for(int k=3;k<7;k++) {
+				if(CList.getColor(k+(i*7))==Color.RED) {
+					if(CList.getColor(k+((i+1)*7)-1)==Color.RED&&CList.getColor(k+((i+2)*7)-2)==Color.RED&&CList.getColor(k+((i+3)*7)-3)==Color.RED) {
+						i=50;
+						k=50;
+						redWins();
+					}
+				}else if(CList.getColor(k+(i*7))==Color.BLUE) {
+					if(CList.getColor(k+((i+1)*7)-1)==Color.BLUE&&CList.getColor(k+((i+2)*7)-2)==Color.BLUE&&CList.getColor(k+((i+3)*7)-3)==Color.BLUE) {
+						i=50;
+						k=50;
+						blueWins();
+					}
+				}
+			}
+		}
+	}
+	public class MouseHandler implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			int xCoord = e.getX();
+			int xIndex=0;
+			int finalIndex=-1;
+			if(xCoord>=108&&xCoord<=760) {
+				if(xCoord>=108&&xCoord<=158) {
+					xIndex= 0;
+				}else if(xCoord>=208&&xCoord<=258) {
+					xIndex= 1;
+				}else if(xCoord>=308&&xCoord<=358) {
+					xIndex = 2;
+				}else if(xCoord>=408&&xCoord<=458) {
+					xIndex = 3;
+				}else if(xCoord>=508&&xCoord<=558) {
+					xIndex = 4;
+				}else if(xCoord>=608&&xCoord<=658) {
+					xIndex = 5;
+				}else if(xCoord>=708&&xCoord<=758) {
+					xIndex = 6;
+				}
+				for (int i=0;i<6;i++) {
+					if (CList.getColor(xIndex+(i*7))==Color.DARK_GRAY) {
+						finalIndex = xIndex+(i*7);
+					}
+				}
+				if(finalIndex!=-1) {
+			if (player==0) {
+				CList.changeColor(finalIndex, Color.RED);
+				player=1;
+			}else {
+				CList.changeColor(finalIndex, Color.BLUE);
+				player=0;
+			}
+				}
+			}
+			panel.repaint();
+			checkForWin();
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {}
+		@Override
+		public void mouseReleased(MouseEvent e) {}
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
+	}
+}

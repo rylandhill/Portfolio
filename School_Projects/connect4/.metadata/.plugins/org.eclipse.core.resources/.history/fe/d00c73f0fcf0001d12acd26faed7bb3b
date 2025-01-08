@@ -1,0 +1,17 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class JPanel2 extends JPanel {
+	public void paintComponent(Graphics g){
+		setBackground(Color.BLACK);
+		g.setColor(Color.RED);
+		for (int i=0;i<42;i++) {
+			g.fillOval(MainScreen.CList.getItem(i).x, MainScreen.CList.getItem(i).y, 50,50);
+		}
+	}
+	public JPanel2() {
+	super(new GridLayout(0,7,10,10));
+	setSize(new Dimension(800,500));
+
+	}
+}

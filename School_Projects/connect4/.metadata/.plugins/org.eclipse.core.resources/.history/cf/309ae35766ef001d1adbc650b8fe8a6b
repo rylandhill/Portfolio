@@ -1,0 +1,24 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class GUI extends JPanel{
+
+	public void paint(Graphics g){
+	
+		setSize(800,800);
+		g.drawOval(50,50,20,20);
+	
+	
+	
+	
+	}
+	public static void main (String args[]) {
+		JFrame MainFrame = new JFrame();
+		MainFrame.setSize(900,900);
+		GUI  c = new GUI();
+		MainFrame.add(c);
+		MainFrame.setVisible(true);
+	}
+
+
+}

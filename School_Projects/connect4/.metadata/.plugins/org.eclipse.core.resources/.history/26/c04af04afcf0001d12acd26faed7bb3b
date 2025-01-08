@@ -1,0 +1,33 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class MainScreen extends JPanel{
+	private static CircleList CList;
+	public void paintComponent(Graphics g){
+		g.setColor(Color.RED);
+		for (int i=0;i<42;i++) {
+			g.fillOval(CList.getItem(i).x, CList.getItem(i).y, 50,50);
+		}
+	}
+	public static void main (String args[]) {
+		CList = new CircleList();
+		for (int y=100;y<700;y+=100) {
+			for (int x=100;x<800;x+=100) {
+				CList.AddNew(x, y, 50);
+			}
+		}
+		System.out.println(CList.getLength());
+		JFrame MainFrame = new JFrame("Connect 4");
+		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		MainFrame.setSize(900,800);
+		MainFrame.setLocationRelativeTo(null);
+		JPanel panel = new JPanel(new GridLayout(0,7,10,10));
+		panel.setSize(new Dimension(800,500));
+		panel.setBackground(Color.BLACK);
+		MainFrame.add(panel,BorderLayout.CENTER);
+		MainScreen circle = new MainScreen();
+		panel.add(circle);
+		MainFrame.setVisible(true);
+
+	}
+}
